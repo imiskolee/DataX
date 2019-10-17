@@ -336,7 +336,12 @@ public class ClickHouseWriter {
                     if (null != utilDate) {
                         sqlTime = new java.sql.Time(utilDate.getTime());
                     }
-                    preparedStatement.setTime(columnIndex + 1, sqlTime);
+                    
+                    if (null == sqlDate) {
+                        preparedStatement.setNull(columnIndex + 1);
+                    }else{
+                        preparedStatement.setTime(columnIndex + 1, sqlTime);
+                    }
                     break;
 
                 case Types.TIMESTAMP:
