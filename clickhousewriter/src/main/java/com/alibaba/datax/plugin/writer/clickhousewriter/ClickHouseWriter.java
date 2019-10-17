@@ -321,7 +321,12 @@ public class ClickHouseWriter {
                     if (null != utilDate) {
                         sqlDate = new java.sql.Date(utilDate.getTime());
                     }
-                    preparedStatement.setDate(columnIndex + 1, sqlDate);
+                    if(null == sqlDate) {
+                        preparedStatement.setString(columnIndex + 1, null);
+                    }else{
+                       preparedStatement.setDate(columnIndex + 1, sqlDate);
+                    }
+  
                     break;
 
                 case Types.TIME:
@@ -337,8 +342,8 @@ public class ClickHouseWriter {
                         sqlTime = new java.sql.Time(utilDate.getTime());
                     }
                     
-                    if (null == sqlDate) {
-                        preparedStatement.setNull(columnIndex + 1);
+                    if (null == sqlTime) {
+                        preparedStatement.setString(columnIndex + 1,null);
                     }else{
                         preparedStatement.setTime(columnIndex + 1, sqlTime);
                     }
@@ -357,7 +362,11 @@ public class ClickHouseWriter {
                         sqlTimestamp = new java.sql.Timestamp(
                                 utilDate.getTime());
                     }
-                    preparedStatement.setTimestamp(columnIndex + 1, sqlTimestamp);
+                    if(null == sqlTimestamp) {
+                        preparedStatement.setString(columnIndex + 1, null);
+                    }else{
+                       preparedStatement.setTimestamp(columnIndex + 1, sqlTimestamp);
+                    }
                     break;
 
                 case Types.BINARY:
